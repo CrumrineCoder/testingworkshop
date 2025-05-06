@@ -2,7 +2,7 @@ https://www.shino.de/parkcalc/
 
 # Manual Test Cases for Parking Calculator
 
-Confirm each element of the form is USEABLE: 
+Confirm form is USEABLE: 
 - Interact with "Choose a Parking Lot" dropdown and verify each option is selectable
     - Valet Parking
     - Short-Term Parking
@@ -22,7 +22,23 @@ Confirm each element of the form is USEABLE:
 - Interact with Calendar buttons and verify an external window opens, and dates are clickable
     - Entry Calendar
     - Leaving Calendar
+- Interact with the Calculate button and verify form is submitted
 
+Check Errors:
+- Interact with dates and input an entry date in the past
+- Interact with dates and input a leaving date that is before the entry date (after the present)
+- Interact with Calculate button without inputting data into each field
+
+Valet Parking:
+
+- Confirm five hours or less
+    - Input Noon of next day for Entry Date and 5 PM of the same day for Leaving Date
+    - Input Noon of next day for Entry Date, and 5 AM of the same day for Leaving Date
+    - Input Midnight of next day for Entry Date, and 5 AM of the same day for Leaving Date
+    - Input Midnight of next day for Entry Date, and 5 PM of the same day for Leaving Date
+- Confirm how a day is calculated
+    - Input 11:59 PM of next day for Entry Date, and 12:01 AM of day after for Leaving Date
+    - Input 11:59 PM of next day for Entry Date, and 12:01 AM of two days after for Leaving Date
 
 Parking Rates
 
