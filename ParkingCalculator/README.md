@@ -104,6 +104,22 @@ Long-Term Surface Parking:
 - Input 6 days ($60)
 - Input 7 days ($60)
 - Input 8 days ($70)
+- Input 30 days 23 hours 59 minutes ($270)
+- Input 31 days ($270) 
+- Input 31 days 1 minute ($272)
+
+Economy:
+- Input under 1 hour ($2)
+- Input 1 hour ($2)
+- Input 1 hour 1 min ($2)
+- Input 2 hours ($4)
+- Input 4 hours ($8)
+- Input 4 hours 59 minutes ($8) -> Error I get $10
+- Input 5 hours ($9)
+- Input 6 days ($54)
+- Input 7 days ($54)
+- Input 8 days ($63)
+- Input 2 weeks ($108)
 
 Parking Rates
 
