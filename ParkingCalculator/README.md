@@ -22,23 +22,37 @@ Confirm form is USEABLE:
 - Interact with Calendar buttons and verify an external window opens, and dates are clickable
     - Entry Calendar
     - Leaving Calendar
+    - Month Dropdown
+    - Past Year and Future Year
+    - Clickable Day Buttons
+    - Window closes when a Date is selected
 - Interact with the Calculate button and verify form is submitted
 
 Check Errors:
 - Interact with dates and input an entry date in the past
 - Interact with dates and input a leaving date that is before the entry date (after the present)
 - Interact with Calculate button without inputting data into each field
+- Input non-numbers into Date input fields
+- Input the same date into the Date input fields 
+- Input an incomplete date into the Date input fields 
+- Input a number over 12 into the hour fields. While the application automatically converts PM to AM for the user, it does not adjust the DAY. 
+    - As an aside, why would we have the radio buttons for AM and PM if it's going to automatically convert to military time? The app should either automatically maintain AM and PM for the user, or the user shouldn't have an option besides military time. 
 
 Valet Parking:
 
 - Confirm five hours or less
     - Input Noon of next day for Entry Date and 5 PM of the same day for Leaving Date
+    
     - Input Noon of next day for Entry Date, and 5 AM of the same day for Leaving Date
     - Input Midnight of next day for Entry Date, and 5 AM of the same day for Leaving Date
     - Input Midnight of next day for Entry Date, and 5 PM of the same day for Leaving Date
 - Confirm how a day is calculated
     - Input 11:59 PM of next day for Entry Date, and 12:01 AM of day after for Leaving Date
     - Input 11:59 PM of next day for Entry Date, and 12:01 AM of two days after for Leaving Date
+
+- With Valet Parking, input the same date (current time) for both fields. Value will be $12, although should probably be invalid. 
+
+
 
 Parking Rates
 
