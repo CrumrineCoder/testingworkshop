@@ -2,17 +2,26 @@ https://www.shino.de/parkcalc/
 
 # Manual Test Cases for Parking Calculator
 
+Confirm each element of the form is USEABLE: 
 - Interact with "Choose a Parking Lot" dropdown and verify each option is selectable
     - Valet Parking
     - Short-Term Parking
     - Economy Parking
     - Long-Term Garage Parking
     - Long-Term Surface Parking
-- Interact with AM & PM Radio buttons and verify both option is selectable
+- Interact with Radio buttons and verify both options are selectable
     - Entry AM
     - Entry PM
     - Leaving AM 
     - Leaving PM
+- Interact with Input fields and verify each option is editable
+    - Entry Day
+    - Entry Time
+    - Leaving Day
+    - Leaving Time
+- Interact with Calendar buttons and verify an external window opens, and dates are clickable
+    - Entry Calendar
+    - Leaving Calendar
 
 
 Parking Rates
