@@ -71,5 +71,17 @@ test("AM/PM radios", async ({ page }) => {
   const entryPMRadio = pmRadioButtons.nth(0);
   const departureAMRadio = amRadioButtons.nth(1);
   const departurePMRadio = pmRadioButtons.nth(1);
+  
+  await expect(entryAMRadio).toBeChecked();
+  await expect(entryPMRadio).not.toBeChecked();
+  await expect(departureAMRadio).toBeChecked();
+  await expect(departurePMRadio).not.toBeChecked();
 
+  await entryPMRadio.click();
+  await expect(entryPMRadio).toBeChecked();
+  await expect(entryAMRadio).not.toBeChecked();
+
+  await departurePMRadio.click();
+  await expect(departurePMRadio).toBeChecked();
+  await expect(departureAMRadio).not.toBeChecked();
 });
