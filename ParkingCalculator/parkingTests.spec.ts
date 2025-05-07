@@ -1,18 +1,15 @@
 import { test, expect } from "playwright/test";
 
-async function navHomePage(page: any) {
+test.beforeEach(async ({ page }) => {
   await page.goto("https://www.shino.de/parkcalc/index.php");
-}
+});
 
-test("tab title test", async ({ page }) => {
-  await navHomePage(page);
+test("tab title", async ({ page }) => {
   const title = await page.title();
   expect(title).toBe("Parking Cost Calculator");
 });
 
-test("dropdown options test", async ({ page }) => {
-  await navHomePage(page);
-
+test("dropdown options", async ({ page }) => {
   const dropdown = await page.locator("select[id='ParkingLot']");
   await expect(dropdown).toBeVisible();
 
