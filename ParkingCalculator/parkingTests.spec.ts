@@ -23,3 +23,15 @@ test("dropdown options", async ({ page }) => {
     "Long-Term Surface Parking",
   ]);
 });
+
+test("date options", async ({ page }) => {
+  const Startingdate = await page.locator("input[id='StartingDate']");
+  await expect(Startingdate).toBeVisible();
+  const startingDateText = await Startingdate.inputValue();
+  expect(startingDateText).toBe("MM/DD/YYYY");
+
+  const leavingDate = await page.locator("input[id='LeavingDate']");
+  await expect(leavingDate).toBeVisible();
+  const leavingDateText = await leavingDate.inputValue();
+  expect(leavingDateText).toBe("MM/DD/YYYY");
+});
