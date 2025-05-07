@@ -34,4 +34,14 @@ test("date options", async ({ page }) => {
   await expect(leavingDate).toBeVisible();
   const leavingDateText = await leavingDate.inputValue();
   expect(leavingDateText).toBe("MM/DD/YYYY");
+
+  const StartingTime = await page.locator("input[id='StartingTime']");
+  await expect(StartingTime).toBeVisible();
+  const startingTimeText = await StartingTime.inputValue();
+  expect(startingTimeText).toBe("12:00");
+
+  const leavingTime = await page.locator("input[id='LeavingTime']");
+  await expect(leavingTime).toBeVisible();
+  const leavingTimeText = await leavingTime.inputValue();
+  expect(leavingTimeText).toBe("12:00");
 });
