@@ -48,7 +48,7 @@ Check Errors:
 - Days should not be allowed to go over 31 (and should be validated to the month, eg February 28 or 29). Months should not go over 12. Year shouldn't be able to go below 2025, and probably shouldn't be able to go more than a year in the future? Not sure on the last one. 
 - When the form is submitted, Parking Lot dropdown resets to Valet parking. This probably shouldn't happen.
 - Small UI thing but the calendar popup should probably have easier access to selecting the next or previous month instead of next or previous year since that's the more likely usecase. 
-- Form should probably reset on refresh. 
+- Form should probably reset on refresh; the url updates so the user can manually edit the URL to reset but there might want to be a dedicated reset button. 
 
 Valet Parking:
 
