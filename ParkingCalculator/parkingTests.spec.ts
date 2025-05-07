@@ -49,16 +49,27 @@ test("date options", async ({ page }) => {
 test("calendar button", async ({ page }) => {
   const calendarButtons = await page.locator("a[href*='NewCal']");
 
-  const firstCalendarButton = calendarButtons.nth(0);
-  await expect(firstCalendarButton).toBeVisible();
+  const entryDateCalendar = calendarButtons.nth(0);
+  await expect(entryDateCalendar).toBeVisible();
 
   const [popup] = await Promise.all([
     page.waitForEvent("popup"),
-    firstCalendarButton.click(), 
+    entryDateCalendar.click(),
   ]);
 
   const popupTitle = await popup.title();
   expect(popupTitle).toContain("Pick a Date");
 
   await popup.close();
+});
+
+test("AM/PM radios", async ({ page }) => {
+  const amRadioButtons = await page.locator("input[type='radio'][value='AM']");
+  const pmRadioButtons = await page.locator("input[type='radio'][value='PM']");
+
+  const entryAMRadio = amRadioButtons.nth(0);
+  const entryPMRadio = pmRadioButtons.nth(0);
+  const departureAMRadio = amRadioButtons.nth(1);
+  const departurePMRadio = pmRadioButtons.nth(1);
+
 });
