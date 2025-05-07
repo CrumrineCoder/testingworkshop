@@ -60,6 +60,27 @@ test("calendar button", async ({ page }) => {
   const popupTitle = await popup.title();
   expect(popupTitle).toContain("Pick a Date");
 
+  const monthDropdown = await popup.locator("select[name='MonthSelector']");
+  await expect(monthDropdown).toBeVisible();
+
+  const options = await monthDropdown.locator("option").allTextContents();
+  const trimmedOptions = options.map(option => option.trim());
+
+  expect(trimmedOptions).toEqual([
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ]);
+
   await popup.close();
 });
 
@@ -71,7 +92,7 @@ test("AM/PM radios", async ({ page }) => {
   const entryPMRadio = pmRadioButtons.nth(0);
   const departureAMRadio = amRadioButtons.nth(1);
   const departurePMRadio = pmRadioButtons.nth(1);
-  
+
   await expect(entryAMRadio).toBeChecked();
   await expect(entryPMRadio).not.toBeChecked();
   await expect(departureAMRadio).toBeChecked();
