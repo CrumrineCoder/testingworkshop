@@ -45,3 +45,20 @@ test("date options", async ({ page }) => {
   const leavingTimeText = await leavingTime.inputValue();
   expect(leavingTimeText).toBe("12:00");
 });
+
+test("calendar button", async ({ page }) => {
+  const calendarButtons = await page.locator("a[href*='NewCal']");
+
+  const firstCalendarButton = calendarButtons.nth(0);
+  await expect(firstCalendarButton).toBeVisible();
+
+  const [popup] = await Promise.all([
+    page.waitForEvent("popup"),
+    firstCalendarButton.click(), 
+  ]);
+
+  const popupTitle = await popup.title();
+  expect(popupTitle).toContain("Pick a Date");
+
+  await popup.close();
+});
