@@ -1,14 +1,17 @@
 import { test, expect } from "playwright/test";
 
+// For each test in this doc, we're going to be using the home page
 test.beforeEach(async ({ page }) => {
   await page.goto("https://www.shino.de/parkcalc/index.php");
 });
 
+// Verify the Tab's title
 test("tab title", async ({ page }) => {
   const title = await page.title();
   expect(title).toBe("Parking Cost Calculator");
 });
 
+// Verify the Parking Lot dropdown contains all 5 lots. 
 test("dropdown options", async ({ page }) => {
   const dropdown = await page.locator("select[id='ParkingLot']");
   await expect(dropdown).toBeVisible();
@@ -24,6 +27,7 @@ test("dropdown options", async ({ page }) => {
   ]);
 });
 
+// Ensures that the date inputs have the correct default value
 test("date options", async ({ page }) => {
   const Startingdate = await page.locator("input[id='StartingDate']");
   await expect(Startingdate).toBeVisible();
@@ -46,6 +50,8 @@ test("date options", async ({ page }) => {
   expect(leavingTimeText).toBe("12:00");
 });
 
+// Ensure that the Calendar button opens a Popup, which has the correct 
+// Title, months (which are all pickable), and days (which are also all pickable)
 test("calendar button", async ({ page }) => {
   const calendarButtons = await page.locator("a[href*='NewCal']");
 
@@ -84,6 +90,7 @@ test("calendar button", async ({ page }) => {
   await popup.close();
 });
 
+// Ensures AM & PM radio buttons have the correct default value, and toggling works
 test("AM/PM radios", async ({ page }) => {
   const amRadioButtons = await page.locator("input[type='radio'][value='AM']");
   const pmRadioButtons = await page.locator("input[type='radio'][value='PM']");
@@ -93,11 +100,13 @@ test("AM/PM radios", async ({ page }) => {
   const departureAMRadio = amRadioButtons.nth(1);
   const departurePMRadio = pmRadioButtons.nth(1);
 
+  // Validate default values
   await expect(entryAMRadio).toBeChecked();
   await expect(entryPMRadio).not.toBeChecked();
   await expect(departureAMRadio).toBeChecked();
   await expect(departurePMRadio).not.toBeChecked();
 
+  // Click on PM for both radio buttons and validate only the PM option is selected
   await entryPMRadio.click();
   await expect(entryPMRadio).toBeChecked();
   await expect(entryAMRadio).not.toBeChecked();
