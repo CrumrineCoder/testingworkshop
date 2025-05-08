@@ -115,3 +115,4 @@ test("AM/PM radios", async ({ page }) => {
   await expect(departurePMRadio).toBeChecked();
   await expect(departureAMRadio).not.toBeChecked();
 });
+
