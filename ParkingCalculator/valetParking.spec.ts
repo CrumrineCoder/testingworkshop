@@ -1,6 +1,10 @@
 import { test, expect } from "@playwright/test";
 
-import { PressCalculate, ValidateParkingCost } from "./FormFunctions.spec";
+import {
+  PressCalculate,
+  ValidateParkingCost,
+  ValidateTime,
+} from "./FormFunctions.spec";
 
 /*
 test.use({
@@ -29,10 +33,9 @@ test("Default Valet Parking Midnight 1 day Interval", async ({ page }) => {
   await page2.getByRole("link", { name: "9", exact: true }).click();
   //await page.getByRole("button", { name: "Calculate" }).click();
 
-  PressCalculate({ page });
+  await PressCalculate({ page });
 
-  ValidateParkingCost({page}, "$ 18.00")
+  await ValidateParkingCost({ page }, "$ 18.00");
 
-  const FinalTime = await page.locator("span[class='BodyCopy']").textContent();
-  expect(FinalTime?.trim()).toBe("(1 Days, 0 Hours, 0 Minutes)");
+  await ValidateTime({ page }, "(1 Days, 0 Hours, 0 Minutes)");
 });
