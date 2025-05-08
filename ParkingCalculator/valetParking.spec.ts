@@ -1,12 +1,14 @@
 import { test, expect } from "@playwright/test";
 
-import { PressCalculate } from "./FormFunctions.spec";
+import { PressCalculate, ValidateParkingCost } from "./FormFunctions.spec";
 
+/*
 test.use({
   launchOptions: {
-    headless: false, 
+    headless: false,
   },
 });
+*/
 
 // Test 1 day interval for Valet Parking. This should be $18 since it's 1 day difference.
 test("Default Valet Parking Midnight 1 day Interval", async ({ page }) => {
@@ -29,8 +31,7 @@ test("Default Valet Parking Midnight 1 day Interval", async ({ page }) => {
 
   PressCalculate({ page });
 
-const FinalCost = await page.getByText("$ 18.00", { exact: true });
-expect(FinalCost).toBeTruthy(); 
+  ValidateParkingCost({page}, "$ 18.00")
 
   const FinalTime = await page.locator("span[class='BodyCopy']").textContent();
   expect(FinalTime?.trim()).toBe("(1 Days, 0 Hours, 0 Minutes)");
