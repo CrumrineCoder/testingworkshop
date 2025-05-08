@@ -1,5 +1,13 @@
 import { test, expect } from "@playwright/test";
 
+import { PressCalculate } from "./FormFunctions.spec";
+
+test.use({
+  launchOptions: {
+    headless: false, 
+  },
+});
+
 // Test 1 day interval for Valet Parking. This should be $18 since it's 1 day difference.
 test("Default Valet Parking Midnight 1 day Interval", async ({ page }) => {
   await page.goto("https://www.shino.de/parkcalc/index.php");
@@ -17,11 +25,13 @@ test("Default Valet Parking Midnight 1 day Interval", async ({ page }) => {
     .click();
   const page2 = await page2Promise;
   await page2.getByRole("link", { name: "9", exact: true }).click();
-  await page.getByRole("button", { name: "Calculate" }).click();
+  //await page.getByRole("button", { name: "Calculate" }).click();
 
-  const FinalCost = await page.locator("span[class='SubHead']").nth(0).textContent();
-  expect(FinalCost?.trim()).toBe("$ 18.00"); // Use trim() to remove any extra whitespace
+  PressCalculate({ page });
+
+const FinalCost = await page.getByText("$ 18.00", { exact: true });
+expect(FinalCost).toBeTruthy(); 
 
   const FinalTime = await page.locator("span[class='BodyCopy']").textContent();
-  expect (FinalTime?.trim()).toBe("(1 Days, 0 Hours, 0 Minutes)")
+  expect(FinalTime?.trim()).toBe("(1 Days, 0 Hours, 0 Minutes)");
 });
