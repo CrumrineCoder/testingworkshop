@@ -27,9 +27,8 @@ export async function inputCalendarDate(
   ) {
     const page1Promise = page.waitForEvent("popup");
   
-    // Corrected string concatenation
     await page
-      .getByRole("row", { name: `Please input ${type} date and` }) // Use template literals
+      .getByRole("row", { name: `Please input ${type} date and` })
       .getByRole("link")
       .click();
   
