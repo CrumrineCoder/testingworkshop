@@ -41,6 +41,15 @@ export async function inputDay(
     type: string,
     day: string
 ){
-    const Startingdate = await page.locator(`input[id='${type}']`);
-    await Startingdate.fill(day);
+    const StartingDate = await page.locator(`input[id='${type}']`);
+    await StartingDate.fill(day);
+}
+
+export async function inputTime(
+    {page}: {page: any}, 
+    type: string,
+    time: string
+){
+    const StartingTime = await page.locator(`input[id='${type}']`);
+    await StartingTime.fill(time);
 }

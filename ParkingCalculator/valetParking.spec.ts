@@ -5,7 +5,8 @@ import {
   ValidateParkingCost,
   ValidateTime,
   inputCalendarDate,
-  inputDay
+  inputDay,
+  inputTime
 } from "./FormFunctions.spec";
 
 /*
@@ -42,4 +43,18 @@ test("Valet Parking Midnight 1 day Interval with Inputs", async ({ page }) => {
     await ValidateParkingCost({ page }, "$ 18.00");
   
     await ValidateTime({ page }, "(1 Days, 0 Hours, 0 Minutes)");
+  });
+
+  test("Valet Parking Same Day 12 hours Interval with Inputs", async ({ page }) => {
+    await inputDay({ page }, "StartingDate", "5/9/2025");
+    await inputDay({ page }, "LeavingDate", "5/9/2025");
+
+    await inputTime({ page }, "StartingTime", "1:00");
+    await inputTime({ page }, "LeavingTime", "13:00");
+    await page.pause();
+    await PressCalculate({ page });
+  
+    await ValidateParkingCost({ page }, "$ 18.00");
+  
+    await ValidateTime({ page }, "(0 Days, 12 Hours, 0 Minutes)");
   });
