@@ -53,3 +53,11 @@ export async function inputTime(
     const StartingTime = await page.locator(`input[id='${type}']`);
     await StartingTime.fill(time);
 }
+
+export async function setLot(
+    {page}: {page: any},
+    lot: string
+){
+    const dropdown = await page.locator("select[id='ParkingLot']");
+    await dropdown.selectOption({ label: lot });
+}
