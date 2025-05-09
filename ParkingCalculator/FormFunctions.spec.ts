@@ -13,9 +13,26 @@ export async function ValidateParkingCost(
 }
 
 export async function ValidateTime(
+  { page }: { page: any },
+  expectedValue: string
+) {
+  const ParkingCost = await page.locator("span[class='BodyCopy']");
+  await expect(ParkingCost).toHaveText(expectedValue);
+}
+
+export async function inputCalendarDate(
     { page }: { page: any },
-    expectedValue: string
+    type: string,
+    day: number
   ) {
-    const ParkingCost = await page.locator("span[class='BodyCopy']");
-    await expect(ParkingCost).toHaveText(expectedValue);
+    const page1Promise = page.waitForEvent("popup");
+  
+    // Corrected string concatenation
+    await page
+      .getByRole("row", { name: `Please input ${type} date and` }) // Use template literals
+      .getByRole("link")
+      .click();
+  
+    const page1 = await page1Promise;
+    await page1.getByRole("link", { name: day.toString(), exact: true }).click();
   }
