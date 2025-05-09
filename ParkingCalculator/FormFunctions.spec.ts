@@ -21,17 +21,26 @@ export async function ValidateTime(
 }
 
 export async function inputCalendarDate(
-    { page }: { page: any },
+  { page }: { page: any },
+  type: string,
+  day: number
+) {
+  const page1Promise = page.waitForEvent("popup");
+
+  await page
+    .getByRole("row", { name: `Please input ${type} date and` })
+    .getByRole("link")
+    .click();
+
+  const page1 = await page1Promise;
+  await page1.getByRole("link", { name: day.toString(), exact: true }).click();
+}
+
+export async function inputDay(
+    {page}: {page: any}, 
     type: string,
-    day: number
-  ) {
-    const page1Promise = page.waitForEvent("popup");
-  
-    await page
-      .getByRole("row", { name: `Please input ${type} date and` })
-      .getByRole("link")
-      .click();
-  
-    const page1 = await page1Promise;
-    await page1.getByRole("link", { name: day.toString(), exact: true }).click();
-  }
+    day: string
+){
+    const Startingdate = await page.locator(`input[id='${type}']`);
+    await Startingdate.fill(day);
+}
