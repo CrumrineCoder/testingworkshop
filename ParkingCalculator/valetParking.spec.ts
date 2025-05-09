@@ -14,6 +14,7 @@ import {
   test1Day1MinuteIntervalWithInputs,
 } from "./sameDayTests.spec";
 
+// Above 5 hours, same day
 test("Valet Parking - Midnight 1 Day Interval with Calendars", async ({
   page,
 }) => {
@@ -32,6 +33,7 @@ test("Valet Parking - Same Day 12 Hours Interval with Inputs", async ({
   await testSameDay12HoursIntervalWithInputs({ page }, "$ 18.00");
 });
 
+// <= 5 hours
 test("Valet Parking - Same Day 5 Hours Interval with Inputs", async ({
   page,
 }) => {
@@ -49,6 +51,8 @@ test("Valet Parking - Same Day 1 Minute Interval with Inputs", async ({
 }) => {
   await testSameDay1MinuteIntervalWithInputs({ page }, "$ 12.00");
 });
+
+// > 1 day
 
 test("Valet Parking - 1 Day 1 Minute Interval with Inputs", async ({
   page,

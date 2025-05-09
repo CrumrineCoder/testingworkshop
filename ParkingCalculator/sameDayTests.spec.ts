@@ -7,7 +7,7 @@ import {
     inputTime,
 } from "./FormFunctions.spec";
 
-// Test 1 day interval for Valet Parking using calendars
+// Midnight day 1 to Midnight day 2 using Calendars 
 export async function testMidnight1DayIntervalWithCalendars({
     page,
 }: {
@@ -22,7 +22,7 @@ export async function testMidnight1DayIntervalWithCalendars({
     await ValidateTime({ page }, "(1 Days, 0 Hours, 0 Minutes)");
 }
 
-// Test 1 day interval for Valet Parking using inputs
+// Midnight day 1 to Midnight day 2 using Date Inputs 
 export async function testMidnight1DayIntervalWithInputs({
     page,
 }: {
