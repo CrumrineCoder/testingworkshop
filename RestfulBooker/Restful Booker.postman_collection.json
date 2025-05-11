@@ -467,6 +467,101 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get and Save BookingIDs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Response contains booking IDs\", function () {",
+							"    pm.expect(response).to.be.an(\"array\").that.is.not.empty;",
+							"});",
+							"",
+							"pm.environment.set(\"bookingId\", response[0].bookingid);",
+							"console.log(\"First Booking ID:\", response[0].bookingid);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "checkin",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "checkout",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Booking by Saved ID",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/{{bookingId}}",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"{{bookingId}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
