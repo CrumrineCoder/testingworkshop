@@ -8,6 +8,25 @@
 	"item": [
 		{
 			"name": "CreateToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Response contain a Token\", function () {",
+							"    pm.expect(response).to.have.property(\"token\").that.is.a(\"string\");",
+							"});",
+							"",
+							"pm.environment.set(\"Token\", response.token);",
+							"console.log(\"Token:\", response.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -193,65 +212,6 @@
 						{
 							"key": "id",
 							"value": "30"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetBooking Invalid ID",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"",
-							"pm.test(\"Response time is less than 200ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);",
-							"});",
-							"",
-							"pm.test(\"Status code is 404\", function () {",
-							"    pm.response.to.have.status(404);",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://restful-booker.herokuapp.com/booking/:id",
-					"protocol": "https",
-					"host": [
-						"restful-booker",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"booking",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "99999999999"
 						}
 					]
 				}
@@ -529,6 +489,65 @@
 					"path": [
 						"booking",
 						"{{bookingId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBooking Invalid ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/:id",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "99999999999"
+						}
 					]
 				}
 			},
