@@ -54,7 +54,21 @@
 							"        pm.expect(booking.bookingid).to.exist;",
 							"        pm.expect(booking.bookingid).to.be.a('number');",
 							"    });",
-							"});"
+							"});",
+							"",
+							"// from https://www.geeksforgeeks.org/javascript-program-to-check-if-an-array-contains-only-unique-values/",
+							"function checkDistinct(array) {",
+							"    const checkSet = new Set(array);",
+							"    return checkSet.size === array.length;  ",
+							"}",
+							"",
+							"pm.test(\"Booking IDs should be unique\", function(){",
+							"    var jsonData = pm.response.json();",
+							"    var bookingIds = jsonData.map(function (booking) {",
+							"        return booking.bookingid;",
+							"    });",
+							"    pm.expect(checkDistinct(bookingIds));",
+							"})"
 						],
 						"type": "text/javascript",
 						"packages": {}
