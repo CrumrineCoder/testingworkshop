@@ -137,11 +137,24 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"",
 							"pm.test(\"Response time is less than 200ms\", function () {",
 							"    pm.expect(pm.response.responseTime).to.be.below(200);",
 							"});",
-							""
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Expected Request Body Formatting\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('firstname').that.is.a('string');",
+							"    pm.expect(jsonData).to.have.property('lastname').that.is.a('string');",
+							"    pm.expect(jsonData).to.have.property('totalprice').that.is.a('number');",
+							"    pm.expect(jsonData).to.have.property('depositpaid').that.is.a('boolean');",
+							"    pm.expect(jsonData.bookingdates.checkin).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+							"    pm.expect(jsonData.bookingdates.checkout).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+							"    pm.expect(jsonData).to.have.property('additionalneeds').that.is.a('string');",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -179,7 +192,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "81"
+							"value": "30"
 						}
 					]
 				}
