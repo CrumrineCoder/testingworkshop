@@ -7,8 +7,11 @@ https://github.com/BMayhew/awesome-sites-to-test-on?tab=readme-ov-file
 
 # Restful Booker
 
-API Postman Testing
+Manual API Testing - Postman
+Automated API Testing - Playwright
+https://github.com/mwinteringham/restful-booker
 
 # Parking Calculator
 
-Manual Test Cases & Playwright Automated Testing
+Manual Test Cases
+Automated End to End Testing - Playwright
