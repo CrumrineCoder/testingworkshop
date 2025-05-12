@@ -1,15 +1,34 @@
 import { test, expect } from "playwright/test";
 
+type BookingData = {
+    firstname: string;
+    lastname: string;
+    totalprice: number;
+    depositpaid: boolean;
+    bookingdates: {
+        checkin: string;
+        checkout: string;
+    };
+    additionalneeds?: string;
+};
+
 // from https://www.geeksforgeeks.org/javascript-program-to-check-if-an-array-contains-only-unique-values/
 function checkDistinct(array) {
     const checkSet = new Set(array);
     return checkSet.size === array.length;  
 }
 
+test.use({
+    baseURL: "https://restful-booker.herokuapp.com",
+});
+
 let firstBookingid: number; 
+let firstBookingData: BookingData;
+
+
 
 test("Check All Bookings", async ({request}) => {
-    const bookings = await request.get("https://restful-booker.herokuapp.com/booking");
+    const bookings = await request.get("/booking");
     expect(bookings.ok()).toBeTruthy(); 
     expect(bookings.status()).toBe(200);
     const bookingsJson: { bookingid: number }[] = await bookings.json();
@@ -18,8 +37,9 @@ test("Check All Bookings", async ({request}) => {
 });
 
 test("Get First Booking", async ({request}) => {
-    const firstBooking = await request.get("https://restful-booker.herokuapp.com/booking/" + firstBookingid);
+    const firstBooking = await request.get("/booking/" + firstBookingid);
     expect(firstBooking.ok()).toBeTruthy(); 
     expect(firstBooking.status()).toBe(200);
-    console.log(await firstBooking.json());
+    firstBookingData = await firstBooking.json();
+  //  console.log(firstBookingData);
 })
