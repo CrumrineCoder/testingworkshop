@@ -18,14 +18,8 @@ function checkDistinct(array) {
     return checkSet.size === array.length;  
 }
 
-test.use({
-    baseURL: "https://restful-booker.herokuapp.com",
-});
-
 let firstBookingid: number; 
 let firstBookingData: BookingData;
-
-
 
 test("Check All Bookings", async ({request}) => {
     const bookings = await request.get("/booking");
