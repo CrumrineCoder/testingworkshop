@@ -52,3 +52,18 @@ test("Get Token", async ({ request }) => {
   const { token: receivedToken } = await tokenRequest.json();
   token = receivedToken;
 });
+
+test("Delete Test Entry", async ({ request }) => {
+  const headers = {
+    Cookie: `token=${token}`,
+  };
+  const deleteFirst = await request.delete("/booking/" + firstBookingid, {
+    headers: headers,
+  });
+  //expect(deleteFirst.ok()).toBeTruthy();
+  // Should be 200 or 204 but it's 201.
+  expect(deleteFirst.status()).toBe(201);
+  const checkBooking = await request.get("/booking/" + firstBookingid);
+  expect(checkBooking.ok()).toBeFalsy();
+  expect(checkBooking.status()).toBe(404);
+});
