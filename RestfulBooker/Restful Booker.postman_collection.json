@@ -238,36 +238,6 @@
 			"response": []
 		},
 		{
-			"name": "PartialUpdateBooking",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "PATCH",
-				"header": [],
-				"url": {
-					"raw": "https://restful-booker.herokuapp.com/booking/:id",
-					"protocol": "https",
-					"host": [
-						"restful-booker",
-						"herokuapp",
-						"com"
-					],
-					"path": [
-						"booking",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": ""
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "HealthCheck",
 			"request": {
 				"auth": {
@@ -745,6 +715,125 @@
 				},
 				"method": "GET",
 				"header": [],
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/{{bookingId}}",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						"{{bookingId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PartialUpdateBooking Without Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"Max\",\n    \"lastname\": \"Piras\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/booking/:{{bookingId}}",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"booking",
+						":{{bookingId}}"
+					],
+					"variable": [
+						{
+							"key": "{{bookingId}}",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PartialUpdateBooking with Token Update Names",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"const response = pm.response.json();",
+							"pm.test(\"Names are updated\", function(){",
+							"    pm.expect(response).to.have.property(\"firstname\").that.is.a(\"string\");",
+							"    pm.expect(response.firstname).to.equal(\"Max\");",
+							"    pm.expect(response).to.have.property(\"lastname\").that.is.a(\"string\");",
+							"    pm.expect(response.lastname).to.equal(\"Piras\");",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{pass}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"Max\",\n    \"lastname\": \"Piras\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "https://restful-booker.herokuapp.com/booking/{{bookingId}}",
 					"protocol": "https",
