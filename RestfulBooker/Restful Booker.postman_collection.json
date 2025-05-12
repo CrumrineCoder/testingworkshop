@@ -225,6 +225,28 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Response contains booking ID\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"bookingid\");",
+							"    pm.expect(jsonData).to.have.property(\"firstname\");",
+							"    pm.expect(jsonData).to.have.property(\"lastname\");",
+							"    pm.expect(jsonData).to.have.property(\"totalprice\");",
+							"    pm.expect(jsonData).to.have.property(\"depositpaid\");",
+							"    pm.expect(jsonData.bookingdates).to.have.property(\"checkin\");",
+							"    pm.expect(jsonData.bookingdates).to.have.property(\"checkout\");",
+							"    pm.expect(jsonData).to.have.property(\"additionalneeds\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
 							""
 						],
 						"type": "text/javascript",
@@ -240,7 +262,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"firstname\": \"Nicolas\",\n    \"lastname\": \"Crumrine\",\n    \"totalprice\": 300,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2022-10-25\",\n        \"checkout\": \"2025-04-07\"\n    },\n    \"additionalneeds\": \"breakfast\"\n}",
+					"raw": "{\n    \"firstname\": \"Nicolas\",\n    \"lastname\": \"Crumrine\",\n    \"totalprice\": 300,\n    \"depositpaid\": true,\n    \"bookingdates\": {\n        \"checkin\": \"2022-10-25\",\n        \"checkout\": \"2022-10-23\"\n    },\n    \"additionalneeds\": \"breakfast\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
