@@ -1,6 +1,6 @@
 import { test, expect } from "playwright/test";
 
-type BookingData = {
+export type BookingData = {
   firstname: string;
   lastname: string;
   totalprice: number;
