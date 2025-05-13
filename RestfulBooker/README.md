@@ -10,9 +10,25 @@ https://github.com/mwinteringham/restful-booker
 
 ## Get Booking IDs (GET)
 
+* Check that Booking IDs are unique
+* Check that only Booking IDs are returned
+
 ## Get Booking (GET)
 
+* Check that a booking ID returns the correct formatting:
+    * Firstname: string
+    * Lastname: string
+    * Totalprice: Number
+    * Depositpaid: Boolean
+    * Booking Dates: Object
+        * Checkin: Date
+        * Checkout: Date
+    * Additionalneeds: String
+
 ## Create Booking (POST)
+
+* Check that a booking with the above formatting can be created
+* Check that a proper error message is created when the data is incorrectly formatted
 
 ## Update Booking (PUT)
 
