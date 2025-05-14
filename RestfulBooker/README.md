@@ -6,6 +6,7 @@ https://github.com/mwinteringham/restful-booker
 * Delete API pathway returns 201 not 204. 
 * Ping Testing API pathway returns 201 not 200. It also says "Created" when that's not what the function is meant to do. 
 * For Create Booking, when the Total price, Deposit Paid, Checkin, Checkout, and Additional needs are incorrect we receive HTTP code 200 instead of 500. 
+* For Update Booking, Total price is error code 200; depositpaid, bookingdates, checkin, checkout, additionalneeds, totalprice are 405. These should all be 500.
 
 # Test Cases
 
