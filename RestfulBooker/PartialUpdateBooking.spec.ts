@@ -18,54 +18,81 @@ const updatedBookingData = {
   totalprice: 400,
   depositpaid: false,
   bookingdates: {
-    checkin: "12/10/2000",
-    checkout: "12/11/2000",
+    checkin: "2000-12-10",
+    checkout: "2000-12-11",
   },
   additionalneeds: "Fun",
 };
 
-let token: string;
-let bookingID: number;
+test.describe("Partial Update Booking - Field-by-Field", () => {
+  let token: string;
+  let bookingID: number;
+  test.beforeAll(async ({ request }) => {
+    const tokenRequestBody = {
+      username: "admin",
+      password: "password123",
+    };
+    const tokenRequest = await request.post("/auth", {
+      data: tokenRequestBody,
+    });
+    expect(tokenRequest.ok()).toBeTruthy();
+    expect(tokenRequest.status()).toBe(200);
+    const { token: receivedToken } = await tokenRequest.json();
+    token = receivedToken;
 
-test.beforeAll(async ({ request }) => {
-  const tokenRequestBody = {
-    username: "admin",
-    password: "password123",
-  };
-  const tokenRequest = await request.post("/auth", {
-    data: tokenRequestBody,
+    const createBookingRequest = await request.post("/booking", {
+      data: baseBookingData,
+    });
+    expect(createBookingRequest.ok()).toBeTruthy();
+    expect(createBookingRequest.status()).toBe(200);
+    const bookingResponse = await createBookingRequest.json();
+    bookingID = bookingResponse.bookingid;
   });
-  expect(tokenRequest.ok()).toBeTruthy();
-  expect(tokenRequest.status()).toBe(200);
-  const { token: receivedToken } = await tokenRequest.json();
-  token = receivedToken;
 
-  const createBookingRequest = await request.post("/booking", {
-    data: baseBookingData,
-  });
-  expect(createBookingRequest.ok()).toBeTruthy();
-  expect(createBookingRequest.status()).toBe(200);
-  const bookingResponse = await createBookingRequest.json();
-  bookingID = bookingResponse.bookingid;
-});
-
-test("Partial Update Booking Success", async ({ request }) => {
-  const headers = {
-    Cookie: `token=${token}`,
-  };
-  const partialUpdateData = {
-    firstname: updatedBookingData.firstname,
-    lastname: updatedBookingData.lastname,
-  };
-  const partialUpdateBookingRequest = await request.patch(
-    "/booking/" + bookingID,
+  const fieldsToUpdate = [
+    { field: "firstname", data: { firstname: updatedBookingData.firstname } },
+    { field: "lastname", data: { lastname: updatedBookingData.lastname } },
     {
-      data: partialUpdateData,
-      headers: headers,
-    }
-  );
-  expect(partialUpdateBookingRequest.ok()).toBeTruthy();
-  expect(partialUpdateBookingRequest.status()).toBe(200);
-  let updatedBookingResponse = await partialUpdateBookingRequest.json();
-  console.log(updatedBookingResponse);
+      field: "totalprice",
+      data: { totalprice: updatedBookingData.totalprice },
+    },
+    {
+      field: "depositpaid",
+      data: { depositpaid: updatedBookingData.depositpaid },
+    },
+    {
+      field: "bookingdates",
+      data: { bookingdates: updatedBookingData.bookingdates },
+    },
+    {
+      field: "additionalneeds",
+      data: { additionalneeds: updatedBookingData.additionalneeds },
+    },
+  ];
+
+  for (const testCase of fieldsToUpdate) {
+    test(`should successfully update ${testCase.field}`, async ({
+      request,
+    }) => {
+      const headers = {
+        Cookie: `token=${token}`,
+      };
+
+      const partialUpdateBookingRequest = await request.patch(
+        "/booking/" + bookingID,
+        {
+          data: testCase.data,
+          headers: headers,
+        }
+      );
+
+      expect(partialUpdateBookingRequest.status()).toBe(200);
+
+      const updatedBookingResponse = await partialUpdateBookingRequest.json();
+      const updatedField = Object.keys(testCase.data)[0];
+      expect(updatedBookingResponse[updatedField]).toEqual(
+        testCase.data[updatedField]
+      );
+    });
+  }
 });
