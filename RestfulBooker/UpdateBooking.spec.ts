@@ -39,10 +39,7 @@ test.beforeAll(async ({ request }) => {
   expect(tokenRequest.status()).toBe(200);
   const { token: receivedToken } = await tokenRequest.json();
   token = receivedToken;
-  console.log(token);
-});
 
-test("Update Booking Success", async ({ request }) => {
   const createBookingRequest = await request.post("/booking", {
     data: baseBookingData,
   });
@@ -50,7 +47,9 @@ test("Update Booking Success", async ({ request }) => {
   expect(createBookingRequest.status()).toBe(200);
   const bookingResponse = await createBookingRequest.json();
   bookingID = bookingResponse.bookingid;
+});
 
+test("Update Booking Success", async ({ request }) => {
   const headers = {
     Cookie: `token=${token}`,
   };
@@ -61,7 +60,7 @@ test("Update Booking Success", async ({ request }) => {
   expect(updateBookingRequest.ok()).toBeTruthy();
   expect(updateBookingRequest.status()).toBe(200);
   let updatedBookingResponse = await updateBookingRequest.json();
-  console.log(updatedBookingResponse);
+  expect(updatedBookingResponse === updatedBookingData);
 });
 
 test.describe("Update Incorrect Booking", () => {
