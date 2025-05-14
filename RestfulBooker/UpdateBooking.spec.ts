@@ -25,42 +25,96 @@ const updatedBookingData = {
 };
 
 let token: string;
+let bookingID: number;
 
-test("Get Token", async ({ request }) => {
-  const tokenRequestBody = {
-    username: "admin",
-    password: "password123",
-  };
-  const tokenRequest = await request.post("/auth", {
-    data: tokenRequestBody,
+test.describe.serial("Test Update Flow", () => {
+  test("Get Token", async ({ request }) => {
+    const tokenRequestBody = {
+      username: "admin",
+      password: "password123",
+    };
+    const tokenRequest = await request.post("/auth", {
+      data: tokenRequestBody,
+    });
+    expect(tokenRequest.ok()).toBeTruthy();
+    expect(tokenRequest.status()).toBe(200);
+    const { token: receivedToken } = await tokenRequest.json();
+    token = receivedToken;
   });
-  expect(tokenRequest.ok()).toBeTruthy();
-  expect(tokenRequest.status()).toBe(200);
-  const { token: receivedToken } = await tokenRequest.json();
-  token = receivedToken;
-});
 
-test("Update Booking Success", async ({ request }) => {
-  const createBookingRequest = await request.post("/booking", {
-    data: baseBookingData,
-  });
-  expect(createBookingRequest.ok()).toBeTruthy();
-  expect(createBookingRequest.status()).toBe(200);
+  test("Update Booking Success", async ({ request }) => {
+    const createBookingRequest = await request.post("/booking", {
+      data: baseBookingData,
+    });
+    expect(createBookingRequest.ok()).toBeTruthy();
+    expect(createBookingRequest.status()).toBe(200);
+    const bookingResponse = await createBookingRequest.json();
+    bookingID = bookingResponse.bookingid;
 
-  const bookingResponse = await createBookingRequest.json();
-
-  const headers = {
-    Cookie: `token=${token}`,
-  };
-  const updateBookingRequest = await request.put(
-    "/booking/" + bookingResponse.bookingid,
-    {
+    const headers = {
+      Cookie: `token=${token}`,
+    };
+    const updateBookingRequest = await request.put("/booking/" + bookingID, {
       data: updatedBookingData,
       headers: headers,
+    });
+    expect(updateBookingRequest.ok()).toBeTruthy();
+    expect(updateBookingRequest.status()).toBe(200);
+    let updatedBookingResponse = await updateBookingRequest.json();
+    console.log(updatedBookingResponse);
+  });
+  /*
+  test.describe("Update Incorrect Booking", () => {
+    const invalidTestCases = [
+      { field: "firstname", data: { ...baseBookingData, firstname: 1337 } },
+      { field: "lastname", data: { ...baseBookingData, lastname: 123 } },
+      {
+        field: "totalprice",
+        data: { ...baseBookingData, totalprice: "one hundred" },
+      },
+      { field: "depositpaid", data: { ...baseBookingData, depositpaid: "yes" } },
+      {
+        field: "bookingdates",
+        data: { ...baseBookingData, bookingdates: "invalid" },
+      },
+      {
+        field: "checkin",
+        data: {
+          ...baseBookingData,
+          bookingdates: { checkin: 123, checkout: "10/20/2010" },
+        },
+      },
+      {
+        field: "checkout",
+        data: {
+          ...baseBookingData,
+          bookingdates: { checkin: "10/10/2010", checkout: 456 },
+        },
+      },
+      {
+        field: "additionalneeds",
+        data: { ...baseBookingData, additionalneeds: 789 },
+      },
+    ];
+
+    const headers = {
+      Cookie: `token=${token}`,
+    };
+
+    for (const testCase of invalidTestCases) {
+      test(`should fail when ${testCase.field} is invalid`, async ({
+        request,
+      }) => {
+        const updateBookingRequest = await request.put(
+          "/booking/" + bookingID,
+          {
+            data: testCase.data,
+            headers: headers,
+          }
+        );
+        expect(updateBookingRequest.status()).toBe(500);
+      });
     }
-  );
-  expect(updateBookingRequest.ok()).toBeTruthy();
-  expect(updateBookingRequest.status()).toBe(200);
-  let updatedBookingResponse = await updateBookingRequest.json();
-  console.log(updatedBookingResponse);
+  });
+  */
 });
