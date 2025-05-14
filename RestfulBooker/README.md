@@ -7,6 +7,7 @@ https://github.com/mwinteringham/restful-booker
 * Ping Testing API pathway returns 201 not 200. It also says "Created" when that's not what the function is meant to do. 
 * For Create Booking, when the Total price, Deposit Paid, Checkin, Checkout, and Additional needs are incorrect we receive HTTP code 200 instead of 500. 
 * For Update Booking, Total price is error code 200; depositpaid, bookingdates, checkin, checkout, additionalneeds, totalprice are 405. These should all be 500.
+* DELETE, UPDATE, and PARTIAL UPDATE should probably all be authenticated for the correct user but I can understand why this example API doesn't have that functionality. 
 
 # Test Cases
 
@@ -35,8 +36,20 @@ https://github.com/mwinteringham/restful-booker
 
 ## Update Booking (PUT)
 
+* Check that a user can correctly replace an existing record so long as it's correctly formatted
+* Check that the user receives a 500 HTTP code when they incorrectly format any part of the booking data
+* Invalid field
+* 403 Forbidden without correct Cookies/Headers
+
 ## Partial Update Booking (PATCH)
 
+* Check that a user can correclty replacing an existing record's fields so long as it's correctly formatted
+* Check that the user receives a 500 HTTP code when they incorrectly format their booking data
+* Invalid field
+* 403 Forbidden without correct Cookies/Headers
+
 ## Delete Booking (DELETE)
+
+* If a user authenticates correctly they're able to remove a record from the booking database by ID
 
 ## Health Check (GET)
