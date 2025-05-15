@@ -33,6 +33,8 @@ https://github.com/mwinteringham/restful-booker
 * Check that a booking with the above formatting can be created
 * Check that a proper error message is created when the data is incorrectly formatted
 * Check that the created booking has the correct format and has the data that we inserted
+* Check that additionalneeds is optional; either the field is not added, or is undefined. 
+* Check that each other field returns an error if undefined or not added. 
 
 ## Update Booking (PUT)
 

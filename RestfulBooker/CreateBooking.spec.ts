@@ -97,3 +97,33 @@ test.describe("Create Incorrect Booking", () => {
     });
   }
 });
+
+test("Create Booking without AdditionalNeeds", async ({ request }) => {
+  // Alternative versions where additionalneeds is either not specified, or undefined.
+
+  //const bookingDataWithoutNeeds = {...baseBookingData, additionalneeds: undefined}
+  const bookingDataWithoutNeeds = {
+    firstname: "Nicolas",
+    lastname: "Crumrine",
+    totalprice: 100,
+    depositpaid: true,
+    bookingdates: {
+      checkin: "10/10/2010",
+      checkout: "10/20/2010",
+    }
+  };
+  const createBookingRequest = await request.post("/booking", {
+    data: bookingDataWithoutNeeds,
+  });
+  expect(createBookingRequest.status()).toBe(200);
+  let createdBooking = await createBookingRequest.json();
+  expect(isExpectedCreateBookingData(createdBooking));
+  const getCreatedbooking = await request.get(
+    "/booking/" + createdBooking.bookingid
+  );
+  expect(getCreatedbooking.ok()).toBeTruthy();
+  expect(getCreatedbooking.status()).toBe(200);
+  let checkCreatedBookingInDB = await createBookingRequest.json();
+  // Need to make sure what we added to the database didn't get transformed or changed
+  expect(checkCreatedBookingInDB.booking === baseBookingData);
+});
