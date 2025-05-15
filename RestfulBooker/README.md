@@ -5,11 +5,11 @@ https://github.com/mwinteringham/restful-booker
 
 * Delete API pathway returns 201 not 204. 
 * Ping Testing API pathway returns 201 not 200. It also says "Created" when that's not what the function is meant to do. 
-* For Create Booking, when the Total price, Deposit Paid, Checkin, Checkout, and Additional needs are incorrect we receive HTTP code 200 instead of 500. 
-* For Update Booking, Total price is error code 200; depositpaid, bookingdates, checkin, checkout, additionalneeds, totalprice are 405. These should all be 500.
+* For Create Booking, when the Total price, Deposit Paid, Checkin, Checkout, and Additional needs are incorrect we receive HTTP code 200 instead of 500 (or 400). 
+* For Update Booking, Total price is error code 200; depositpaid, bookingdates, checkin, checkout, additionalneeds, totalprice are 405. These should all be 500 (or 400).
 * DELETE, UPDATE, and PARTIAL UPDATE should probably all be authenticated for the correct user but I can understand why this example API doesn't have that functionality. 
-* CREATE doesn't require any fields to add a listing!! It returns 200 instead of 400
-* PARTIAL UPDATE doesn't require any fields. It returns 200 instead of 400. 
+* CREATE, PARTIAL UPDATE, and UPDATE doesn't require any fields to add a listing!! It returns 200 instead of 400
+* PARTIAL UPDATE should return 400 when the data is incorrectly formatted
 
 # Test Cases
 
