@@ -8,7 +8,8 @@ https://github.com/mwinteringham/restful-booker
 * For Create Booking, when the Total price, Deposit Paid, Checkin, Checkout, and Additional needs are incorrect we receive HTTP code 200 instead of 500. 
 * For Update Booking, Total price is error code 200; depositpaid, bookingdates, checkin, checkout, additionalneeds, totalprice are 405. These should all be 500.
 * DELETE, UPDATE, and PARTIAL UPDATE should probably all be authenticated for the correct user but I can understand why this example API doesn't have that functionality. 
-* CREATE doesn't require any fields to add a listing!! It returns 200 instead of 500
+* CREATE doesn't require any fields to add a listing!! It returns 200 instead of 400
+* PARTIAL UPDATE doesn't require any fields. It returns 200 instead of 400. 
 
 # Test Cases
 

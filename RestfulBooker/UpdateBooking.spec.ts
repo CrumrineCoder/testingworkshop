@@ -24,6 +24,40 @@ const updatedBookingData = {
   additionalneeds: "Fun",
 };
 
+ const invalidTestCases = [
+    { field: "firstname", data: { ...baseBookingData, firstname: 1337 } },
+    { field: "lastname", data: { ...baseBookingData, lastname: 123 } },
+    {
+      field: "totalprice",
+      data: { ...baseBookingData, totalprice: "one hundred" },
+    },
+    {
+      field: "depositpaid",
+      data: { ...baseBookingData, depositpaid: "yes" },
+    },
+    {
+      field: "bookingdates",
+      data: { ...baseBookingData, bookingdates: "invalid" },
+    },
+    {
+      field: "checkin",
+      data: {
+        ...baseBookingData,
+        bookingdates: { checkin: 123, checkout: "10/20/2010" },
+      },
+    },
+    {
+      field: "checkout",
+      data: {
+        ...baseBookingData,
+        bookingdates: { checkin: "10/10/2010", checkout: 456 },
+      },
+    },
+    {
+      field: "additionalneeds",
+      data: { ...baseBookingData, additionalneeds: 789 },
+    },
+  ];
 let token: string;
 let bookingID: number;
 
@@ -64,41 +98,6 @@ test("Update Booking Success", async ({ request }) => {
 });
 
 test.describe("Update Incorrect Booking", () => {
-  const invalidTestCases = [
-    { field: "firstname", data: { ...baseBookingData, firstname: 1337 } },
-    { field: "lastname", data: { ...baseBookingData, lastname: 123 } },
-    {
-      field: "totalprice",
-      data: { ...baseBookingData, totalprice: "one hundred" },
-    },
-    {
-      field: "depositpaid",
-      data: { ...baseBookingData, depositpaid: "yes" },
-    },
-    {
-      field: "bookingdates",
-      data: { ...baseBookingData, bookingdates: "invalid" },
-    },
-    {
-      field: "checkin",
-      data: {
-        ...baseBookingData,
-        bookingdates: { checkin: 123, checkout: "10/20/2010" },
-      },
-    },
-    {
-      field: "checkout",
-      data: {
-        ...baseBookingData,
-        bookingdates: { checkin: "10/10/2010", checkout: 456 },
-      },
-    },
-    {
-      field: "additionalneeds",
-      data: { ...baseBookingData, additionalneeds: 789 },
-    },
-  ];
-
   for (const testCase of invalidTestCases) {
     test(`should fail when ${testCase.field} is invalid`, async ({
       request,
@@ -115,3 +114,17 @@ test.describe("Update Incorrect Booking", () => {
     });
   }
 });
+
+  test("Empty Update Booking", async ({ request }) => {
+    const headers = {
+      Cookie: `token=${token}`,
+    };
+    const EmptyUpdateBookingRequest = await request.put(
+      "/booking/" + bookingID,
+      {
+        headers: headers,
+      }
+    );
+    // ERROR: This should be 400, not 200
+    expect(EmptyUpdateBookingRequest.status()).toBe(400);
+  });

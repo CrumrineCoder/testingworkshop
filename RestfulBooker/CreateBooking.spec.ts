@@ -33,7 +33,7 @@ const baseBookingData = {
   },
   additionalneeds: "Water",
 };
-/*
+
 test("Create Correct Booking", async ({ request }) => {
   const createBookingRequest = await request.post("/booking", {
     data: baseBookingData,
@@ -127,10 +127,10 @@ test("Create Booking without AdditionalNeeds", async ({ request }) => {
   // Need to make sure what we added to the database didn't get transformed or changed
   expect(checkCreatedBookingInDB.booking === baseBookingData);
 });
-*/
+
 
 test("CreateBooking with missing fields", async({request}) => {
     const emptyCreateBooking = await request.get("/booking");
     // ERROR: All the fields are missing! But we get 200. 
-    expect(emptyCreateBooking.status()).toBe(500);
+    expect(emptyCreateBooking.status()).toBe(400);
 })
