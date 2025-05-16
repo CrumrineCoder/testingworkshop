@@ -62,8 +62,16 @@ test("Delete Test Entry", async ({ request }) => {
   });
   //expect(deleteFirst.ok()).toBeTruthy();
   // Should be 200 or 204 but it's 201.
-  expect(deleteFirst.status()).toBe(201);
+  expect([200, 204]).toContain(deleteFirst.status());
+  //expect(deleteFirst.status()).toBe(204 || 200);
   const checkBooking = await request.get("/booking/" + firstBookingid);
   expect(checkBooking.ok()).toBeFalsy();
   expect(checkBooking.status()).toBe(404);
 });
+
+test("Health Check", async({request})=>{
+  const healthCheckRequest = await request.get("/ping");
+  expect (healthCheckRequest.ok()).toBeTruthy();
+  // ERROR: is 201. 
+  expect (healthCheckRequest.status()).toBe(200);
+})

@@ -10,6 +10,7 @@ https://github.com/mwinteringham/restful-booker
 * DELETE, UPDATE, and PARTIAL UPDATE should probably all be authenticated for the correct user but I can understand why this example API doesn't have that functionality. 
 * CREATE, PARTIAL UPDATE, and UPDATE doesn't require any fields to add a listing!! It returns 200 instead of 400
 * PARTIAL UPDATE should return 400 when the data is incorrectly formatted
+* PING returns 201 not 200 (created vs OK)
 
 # Test Cases
 
@@ -57,3 +58,5 @@ https://github.com/mwinteringham/restful-booker
 * If a user authenticates correctly they're able to remove a record from the booking database by ID
 
 ## Health Check (GET)
+
+* Check that we get 200 when the db is healthy, and an error when it's not (which I cannot simulate unfortunately)
