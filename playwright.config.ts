@@ -35,6 +35,22 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'Restful Booker',
+      testMatch: /tests\/RestfulBooker\/.*\.spec\.ts/,
+      use: {
+        baseURL: 'https://restful-booker.herokuapp.com',
+      },
+    },
+    {
+      name: 'Parking Calculator',
+      testIgnore: /tests\/RestfulBooker\/.*\.spec\.ts/,
+      use: {
+     //   baseURL: ""
+      },
+    },
+
+    /*
+    {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
@@ -48,7 +64,7 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-
+ */
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',

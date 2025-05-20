@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
 //  reporter: "html",
   use: {
-    baseURL: "https://restful-booker.herokuapp.com", // Set the base URL here
+  //  baseURL: "https://restful-booker.herokuapp.com", 
     trace: "on-first-retry",
   },
   projects: [

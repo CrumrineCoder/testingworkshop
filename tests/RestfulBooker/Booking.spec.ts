@@ -24,7 +24,7 @@ let token: string;
 
 test("Check All Bookings", async ({ request }) => {
   const bookings = await request.get("/booking");
-  expect(bookings.ok()).toBeTruthy();
+ // expect(bookings.ok()).toBeTruthy();
   expect(bookings.status()).toBe(200);
   const bookingsJson: { bookingid: number }[] = await bookings.json();
   expect(checkDistinct(bookingsJson));
