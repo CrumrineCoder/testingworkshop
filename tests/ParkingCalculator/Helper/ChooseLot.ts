@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { setLot } from "./FormFunctions.spec";
+import { setLot } from "./FormFunctions";
 
 export function setupParkingLot(lotName: string) {
   test.beforeEach(async ({ page }) => {

@@ -5,7 +5,7 @@ import {
     inputCalendarDate,
     inputDay,
     inputTime,
-} from "./FormFunctions.spec";
+} from "./FormFunctions";
 
 // Midnight day 1 to Midnight day 2 using Calendars 
 export async function testMidnight1DayIntervalWithCalendars({

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-import { setupParkingLot } from "./ChooseLot";
+import { setupParkingLot } from "./Helper/ChooseLot";
 
 setupParkingLot("Valet Parking");
 
@@ -12,7 +12,7 @@ import {
   testSameDay4HoursIntervalWithInputs,
   testSameDay1MinuteIntervalWithInputs,
   test1Day1MinuteIntervalWithInputs,
-} from "./sameDayTests.spec";
+} from "./Helper/sameDayTests";
 
 // Above 5 hours, same day
 test("Valet Parking - Midnight 1 Day Interval with Calendars", async ({
