@@ -1,14 +1,16 @@
 import {chromium} from "playwright";
 import {OpenAI} from "openai";
-import dotenv from "dotenv";
-
+import * as dotenv from "dotenv";
 dotenv.config();
+
+
+console.log(process.env.OPENAI_API_KEY);
 
 const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 async function askOpenAI(prompt: string): Promise<string> {
   const response = await openai.chat.completions.create({
-    model: 'gpt-4',
+    model: 'gpt-4o',
     messages: [{ role: 'user', content: prompt }],
   });
 
@@ -22,11 +24,6 @@ async function main() {
   const task = "Go to Shaed.ai and click the About page";
   const plan = await askOpenAI(`Break down this task into steps: ${task}`);
   console.log("Plan:", plan);
-
-  await page.goto('https://www.shaed.ai/');
-  await page.click('text=About');
-
-  await browser.close();
 }
 
 main();
