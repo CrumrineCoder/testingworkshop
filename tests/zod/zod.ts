@@ -1,14 +1,9 @@
-import { z } from "zod/v4";
- 
-const User = z.object({
+import { z } from "zod";
+
+const userSchema = z.object({
   name: z.string(),
+  age: z.number(),
 });
- 
-// some untrusted data...
-const input = { /* stuff */ };
- 
-// the parsed result is validated and type safe!
-const data = User.parse(input);
- 
-// so you can use it with confidence :)
-console.log(data.name);
+
+const result = userSchema.safeParse({ name: "Nicolas", age: 26 });
+console.log(result);
