@@ -5,5 +5,11 @@ const userSchema = z.object({
   age: z.number(),
 });
 
-const result = userSchema.parse({ name: "Nicolas", age: 26 });
-console.log(result);
+try {
+  const result = userSchema.parse({ name: "Nicolas", age: 26 });
+  console.log(result);
+} catch (err) {
+  if (err instanceof z.ZodError) {
+    err.issues;
+  }
+}
