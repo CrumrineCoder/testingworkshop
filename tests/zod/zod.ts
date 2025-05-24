@@ -5,5 +5,5 @@ const userSchema = z.object({
   age: z.number(),
 });
 
-const result = userSchema.safeParse({ name: "Nicolas", age: 26 });
+const result = userSchema.parse({ name: "Nicolas", age: 26 });
 console.log(result);
